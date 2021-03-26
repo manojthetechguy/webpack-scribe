@@ -9,12 +9,12 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "/static/",
+    publicPath: "",
   },
   mode: "development",
   devServer: {
     contentBase: path.resolve(__dirname, "./dist"),
-    index: "index.html",
+    index: "kiwi.html",
     port: 9002,
   },
   module: {
