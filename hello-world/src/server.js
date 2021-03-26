@@ -10,10 +10,7 @@ app.get("/hello-world/", function (req, res) {
   res.send(contents);
 });
 
-app.use(
-  "/static",
-  express.static(path.resolve(path.resolve(__dirname, "../dist")))
-);
+app.use("/", express.static(path.resolve(path.resolve(__dirname, "../dist"))));
 
 const PORT = 9001;
 
