@@ -6,6 +6,5 @@ const helloWorld = new HelloWorld();
 
 heading.render("Hello World");
 helloWorld.render();
-// addImage();
 
 console.log("NODE_ENV", process.env.NODE_ENV);
