@@ -15,7 +15,7 @@ app.use(
   express.static(path.resolve(path.resolve(__dirname, "../dist")))
 );
 
-const PORT = 3001;
+const PORT = 9001;
 
 app.listen(PORT, () => {
   console.info(`Server listening at PORT: ${PORT}`);
