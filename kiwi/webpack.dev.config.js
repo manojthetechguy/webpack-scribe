@@ -1,6 +1,4 @@
 const path = require("path");
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
@@ -8,9 +6,9 @@ const { ModuleFederationPlugin } = require("webpack").container;
 module.exports = {
   entry: "./src/kiwi.js",
   output: {
-    filename: "[name].js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "",
+    publicPath: "http://localhost:9002/",
   },
   mode: "development",
   devServer: {
@@ -35,11 +33,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.js$/,
@@ -59,10 +57,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new TerserPlugin(),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-    }),
     new HtmlWebpackPlugin({
       filename: "kiwi.html",
       title: "Kiwi",
@@ -72,8 +66,12 @@ module.exports = {
     new CleanWebpackPlugin(),
     new ModuleFederationPlugin({
       name: "KiwiApp",
-      remotes: {
-        HelloWorldApp: "HelloWorldApp@http://localhost:9001/remoteEntry.js",
+      // remotes: {
+      //   HelloWorldApp: "HelloWorldApp@http://localhost:9001/remoteEntry.js",
+      // },
+      filename: "remoteEntry.js",
+      exposes: {
+        "./KiwiPage": "./src/components/kiwi-page/kiwi-page.js",
       },
     }),
   ],
